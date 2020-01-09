@@ -14,5 +14,7 @@ public class StockExchange {
 
     }
 
-    public void placeOrder
+    public void placeOrder(TradeOrder tradeOrder) {
+        
+    }
 }
