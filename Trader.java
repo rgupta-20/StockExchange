@@ -1,3 +1,7 @@
+/**
+ * Author: Harry Shin
+ * Trader Class
+ */
 class Trader implements Comparable<Trader> {
     Queue messages = new LinkedList<String>();
     Brokerage brok;
