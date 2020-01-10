@@ -5,8 +5,6 @@ trade order object that contains information about the order
 
 */
 
-import java.util.*;
-
 public class TradeOrder {
 
     private Trader trader;
@@ -60,5 +58,5 @@ public class TradeOrder {
     public void subtractShares(int shares) {
         numsShares = numShares - shares;
     }
-    
+
 }
