@@ -1,5 +1,5 @@
 //Author: Vincent Fan
-//Contributed: Ronit Gupta
+//Author: Ronit Gupta
 
 //Explanation
 
@@ -64,8 +64,34 @@ public class Stock {
   
   }
 
-  public void placeOrder(TradeOrder order)
-  {
+  public void placeOrder(TradeOrder order) {
+
+    String buyOrSell = "";
+    String marketOrPrice = "";
+
+    if (order.buyOrder()) {
+      buyOrders.add(order);
+      buyOrSell = "Buy";
+    }
+
+    else {
+      sellOrders.add(order);
+      buyOrSell = "Sell";
+    }
+
+    if (order.isMarket()) {
+      marketOrPrice = "market";
+    }
+    
+    else {
+      money.format(order.getPrice());
+      marketOrPrice = "" + order.getPrice();
+    }
+
+    System.out.println("New order: " + buyOrSell + " " + symbol + " (" + name + ")");
+    System.out.println(order.getShares() + " shares at " + marketOrPrice)
+
+
 
   }
 
