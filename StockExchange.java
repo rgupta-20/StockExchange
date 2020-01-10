@@ -1,3 +1,9 @@
+/*
+create the stock exchange with methods for adding a stock, getting stock price, and placing an order
+author: ronit gupta
+
+*/
+
 import java.util.*;
 import Stock;
 
