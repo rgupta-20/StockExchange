@@ -2,6 +2,8 @@
  * Author: Harry Shin
  * Trader Class
  */
+import java.util.*;
+import Brokerage;
 class Trader implements Comparable<Trader> {
     Queue messages = new LinkedList<String>();
     Brokerage brok;
