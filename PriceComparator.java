@@ -23,7 +23,7 @@ class PriceComparator implements Comparator<TradeOrder> {
             return 1;
         }
         else {
-            double diff = Math.round((order1.getPrice() - order2.getPrice()) * 100.0) / 100.0;
+            double d = Math.round((order1.getPrice() - order2.getPrice()) * 100.0) / 100.0;
             if (ascending) {
                 return d;
             }
