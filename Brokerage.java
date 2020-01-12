@@ -1,5 +1,5 @@
 import java.util.*;
-import StackExchange;
+import StockExchange;
 import Trader;
 
 
@@ -13,7 +13,7 @@ public class Brokerage {
     loggedOnTraders = new TreeMap<String, Trader>();
   }
 
-  public int addUser (java.lang.String name, java.lang.String password) {
+  public int addUser (String name, String password) {
     if (name.length() < 4 || name.length() > 10) {
       return -1;
     } else if (password.length() < 2 || password.length() > 10) {
@@ -26,7 +26,7 @@ public class Brokerage {
     return 0;
   }
 
-  public int login (java.lang.String name, java.lang.String password) {
+  public int login (String name, String password) {
     if (!traderList.containsKey(name)) {
       return -1;
     } else if (loggedOnTraders.containsKey(name)) {
@@ -43,11 +43,11 @@ public class Brokerage {
     loggedOnTraders.remove(Trader.getName());
   }
 
-  public void getQuote (java.lang.String symbol, Trader trader) {
-    trader.receiveMessage(Trader.getQuote(symbol));
+  public void getQuote (String symbol, Trader trader) {
+    trader.receiveMessage(trader.getQuote(symbol));
   }
 
   public void placeOrder(TradeOrder order) {
-    StackExchange.placeOrder(order));
+    StockExchange.placeOrder(order));
   }
 }
