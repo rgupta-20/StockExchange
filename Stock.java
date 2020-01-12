@@ -91,8 +91,8 @@ public class Stock {
     System.out.println("New order: " + buyOrSell + " " + symbol + " (" + name + ")");
     System.out.println(order.getShares() + " shares at " + marketOrPrice)
 
-
-
   }
+
+  executeOrders();
 
 }
