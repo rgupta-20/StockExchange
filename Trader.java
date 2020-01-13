@@ -5,10 +5,9 @@
 import java.util.*;
 
 public class Trader implements Comparable<Trader> {
-    private Queue messages = new LinkedList<String>();
+    private Queue messages;
     private Brokerage brok;
     private String id, pw;
-    private Queue<String> messages;
     private TraderWindow myWindow;
 
     public Trader(Brokerage brokerage, String name, String pswd) {
@@ -38,7 +37,7 @@ public class Trader implements Comparable<Trader> {
     }
     public boolean equals(Object other) {
         
-        if (this.id.compareToIgnoreCase((Trader) other.getName()) == 0) {
+        if (this.id.compareToIgnoreCase(((Trader) other).getName()) == 0) {
             return true;
         }
         else {
