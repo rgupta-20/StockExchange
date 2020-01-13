@@ -46,8 +46,8 @@ public class Trader implements Comparable<Trader> {
     }
     public void openWindow() {
         TraderWindow myWindow = new TraderWindow(this);
-        for (String m : messages) {
-            myWindow.showMessage(m);
+        for (Object m : messages) {
+            myWindow.showMessage((String) m);
         }
     }
     public boolean hasMessages() {
@@ -61,8 +61,8 @@ public class Trader implements Comparable<Trader> {
     public void receiveMessage(String msg) {
         messages.add(msg); 
         if (myWindow != null) {
-            for (String item : messages) {
-                myWindow.showMessage(msg);
+            for (Object item : messages) {
+                myWindow.showMessage((String) msg);
             }
         }
     }

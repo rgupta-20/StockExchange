@@ -29,8 +29,8 @@ public class Stock {
     this.hi=price;
     this.last=price;
     this.volume=0;
-    this.sellOrders = new PriorityQueue<>(new PriceComparator(true));
-    this.buyOrders = new PriorityQueue<>(new PriceComparator(false));
+    this.sellOrders = new PriorityQueue<>();
+    this.buyOrders = new PriorityQueue<>();
   
     //true is ascending
 

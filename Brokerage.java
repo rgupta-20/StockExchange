@@ -30,7 +30,7 @@ public class Brokerage implements Login {
       return -1;
     } else if (loggedOnTraders.containsKey(name)) {
       return -3;
-    } else if (traderList.get(name).getPassword().equals(password)) {
+    } else if (!(traderList.get(name).getPassword().equals(password))) {
       return -2;
     }
     Trader add = new Trader(this, name, password);
