@@ -14,7 +14,7 @@ public class Trader implements Comparable<Trader> {
         brok = brokerage;
         id = name;
         pw = pswd;
-        messages = new Queue<String>();
+        messages = new LinkedList<String>();
         myWindow = null;
     }
     public String getName() {
