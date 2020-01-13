@@ -35,6 +35,7 @@ public class Brokerage implements Login {
     }
     Trader add = new Trader(this, name, password);
     loggedOnTraders.put(name, add);
+    add.openWindow();
     return 0;
   }
 
