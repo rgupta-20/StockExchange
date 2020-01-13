@@ -1,9 +1,10 @@
 import java.util.*;
 import StockExchange;
 import Trader;
+import Login;
 
 
-public class Brokerage {
+public class Brokerage implements Login {
 
   public TreeMap<String, Trader> traderList;
   public TreeMap<String, Trader> loggedOnTraders;
