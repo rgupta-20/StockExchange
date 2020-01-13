@@ -118,7 +118,7 @@ public class Stock {
           currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentS.getShares()*last));
           sellOrders.remove();
           buyOrders.peek().subtractShares(currentS.getShares());
-          volume+=currentS.getShares;
+          volume+=currentS.getShares();
         }
         else
         {
@@ -160,7 +160,7 @@ public class Stock {
         hi=Math.max(hi, last);
         lo = Math.min(lo, last);
       }
-      else if(currentB.isMarket()&&currentS.isLimit)
+      else if(currentB.isMarket()&&currentS.isLimit())
       {
         if(currentB.getShares()==currentS.getShares())
         {

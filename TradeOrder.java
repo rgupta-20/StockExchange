@@ -56,7 +56,7 @@ public class TradeOrder {
     }
 
     public void subtractShares(int shares) {
-        numsShares = numShares - shares;
+        numShares = numShares - shares;
     }
 
 }
