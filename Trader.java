@@ -3,7 +3,7 @@
  * Trader Class
  */
 import java.util.*;
-import Brokerage;
+
 class Trader implements Comparable<Trader> {
     Queue messages = new LinkedList<String>();
     Brokerage brok;
@@ -14,14 +14,14 @@ class Trader implements Comparable<Trader> {
         id = name;
         pw = pswd;
     }
-    public getName() {
+    public String getName() {
         return id;
     }
-    public getPassword() {
+    public String getPassword() {
         return pw;
     }
     public int compareTo(Trader other) {
-        int diff = this.id.toLowerCase().compareTo(other.id.toLowerCase())
+        int diff = this.id.toLowerCase().compareTo(other.id.toLowerCase());
         if (diff == 0) {
             return 0;
         }
@@ -33,6 +33,7 @@ class Trader implements Comparable<Trader> {
         }
     }
     public boolean equals(Object other) {
+        
         if (!(other instanceof Trader)) {
             return ClassCastException;
         }

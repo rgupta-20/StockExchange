@@ -4,6 +4,7 @@
  */
 import java.lang.Math;
 import java.util.*;
+
 class PriceComparator implements Comparator<TradeOrder> {
     private boolean ascending;
     public PriceComparator() {

@@ -5,12 +5,13 @@ author: ronit gupta
 */
 
 import java.util.*;
-import Stock;
 
 public class StockExchange {
 
+    private HashMap<String, Stock> stockExchange; 
+
     public StockExchange() {
-        HashMap<String, Stock> stockExchange = new HashMap<>();
+        stockExchange = new HashMap<>();
     }
 
     public void listStock(String symbol, String name, double price) {
@@ -24,8 +25,7 @@ public class StockExchange {
     }
 
     public void placeOrder(TradeOrder tradeOrder) {
-        Stock stockOrder = stockExchange.get(tradeOrder.getSymbol);
-        stockOrder.placeOrder();
+        stockExchange.get(tradeOrder.getSymbol()).placeOrder(tradeOrder);
     }
 }
 

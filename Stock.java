@@ -7,15 +7,13 @@ import java.text.DecimalFormat;
 import java.util.PriorityQueue;
 import java.lang.Math;
 
-import TradeOrder;
-
 public class Stock {
 
   public static java.text.DecimalFormat money;
 
-  private String symbol, String name, double prices;
+  private String symbol, name; 
 
-  private double lo, double hi, double last;
+  private double lo, hi, last, price;
 
   private int volume;
 
@@ -31,11 +29,12 @@ public class Stock {
     this.hi=price;
     this.last=price;
     this.volume=0;
-    this.sellOrders = new PriorityQueue<>(Comparator<TradeOrder> PriceComparator(true));
-    this.buyOrders = new PriorityQueue<>(Comparator<TradeOrder> PriceComparator(false));
+    this.sellOrders = new PriorityQueue<>(new PriceComparator(true));
+    this.buyOrders = new PriorityQueue<>(new PriceComparator(false));
+  
     //true is ascending
 
-    this.money = new DecimalFormat(" #,###.##")
+    this.money = new DecimalFormat(" #,###.##");
   }
 
   public String getQuote() {
@@ -52,7 +51,7 @@ public class Stock {
 
     if (buyOrders.isEmpty()) {
       highestBuyPrice = this.price;
-      highestBuyVol = "none"
+      highestBuyVol = "none";
     }
 
     lowestSellPrice = sellOrders.peek().getPrice();
@@ -70,7 +69,7 @@ public class Stock {
     String buyOrSell = "";
     String marketOrPrice = "";
 
-    if (order.buyOrder()) {
+    if (order.isBuy()) {
       buyOrders.add(order);
       buyOrSell = "Buy";
     }
@@ -90,7 +89,7 @@ public class Stock {
     }
 
     System.out.println("New order: " + buyOrSell + " " + symbol + " (" + name + ")");
-    System.out.println(order.getShares() + " shares at " + marketOrPrice)
+    System.out.println(order.getShares() + " shares at " + marketOrPrice);
 
     executeOrders();
 
@@ -117,9 +116,9 @@ public class Stock {
         {
           currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentS.getShares()*last));
           currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentS.getShares()*last));
-          sellOrders.remove()
+          sellOrders.remove();
           buyOrders.peek().subtractShares(currentS.getShares());
-          volume+=currentS.getShares
+          volume+=currentS.getShares;
         }
         else
         {
@@ -229,3 +228,4 @@ public class Stock {
       }
     }
   }
+}

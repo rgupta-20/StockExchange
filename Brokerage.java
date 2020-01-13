@@ -1,17 +1,15 @@
 import java.util.*;
-import StockExchange;
-import Trader;
-import Login;
-
 
 public class Brokerage implements Login {
 
   public TreeMap<String, Trader> traderList;
   public TreeMap<String, Trader> loggedOnTraders;
+  public StockExchange stockEx;
 
   public Brokerage (StockExchange exchange) {
     traderList = new TreeMap<String, Trader>();
     loggedOnTraders = new TreeMap<String, Trader>();
+    stockEx = exchange;
   }
 
   public int addUser (String name, String password) {
@@ -22,7 +20,7 @@ public class Brokerage implements Login {
     } else if (traderList.containsKey(name)) {
       return -3;
     }
-    Trader add = new Trader(this.Brokerage, name, password);
+    Trader add = new Trader(this, name, password);
     traderList.put(name, add);
     return 0;
   }
@@ -35,20 +33,20 @@ public class Brokerage implements Login {
     } else if (traderList.get(name).getPassword().equals(password)) {
       return -2;
     }
-    Trader add = new Trader(this.Brokerage, name, password);
+    Trader add = new Trader(this, name, password);
     loggedOnTraders.put(name, add);
     return 0;
   }
 
   public void logout (Trader trader) {
-    loggedOnTraders.remove(Trader.getName());
+    loggedOnTraders.remove(trader.getName());
   }
 
   public void getQuote (String symbol, Trader trader) {
-    trader.receiveMessage(trader.getQuote(symbol));
+    trader.receiveMessage(stockEx.getQuote(symbol));
   }
 
   public void placeOrder(TradeOrder order) {
-    StockExchange.placeOrder(order));
+    stockEx.placeOrder(order);
   }
 }
