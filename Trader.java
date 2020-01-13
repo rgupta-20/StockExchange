@@ -4,7 +4,7 @@
  */
 import java.util.*;
 
-publicclass Trader implements Comparable<Trader> {
+public class Trader implements Comparable<Trader> {
     private Queue messages = new LinkedList<String>();
     private Brokerage brok;
     private String id, pw;
