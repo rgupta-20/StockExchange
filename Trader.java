@@ -4,11 +4,11 @@
  */
 import java.util.*;
 
-class Trader implements Comparable<Trader> {
-    Queue messages = new LinkedList<String>();
-    Brokerage brok;
-    String id;
-    String pw;
+publicclass Trader implements Comparable<Trader> {
+    private Queue messages = new LinkedList<String>();
+    private Brokerage brok;
+    private String id, pw;
+
     public Trader(Brokerage brokerage, String name, String pswd) {
         brok = brokerage;
         id = name;
@@ -34,10 +34,7 @@ class Trader implements Comparable<Trader> {
     }
     public boolean equals(Object other) {
         
-        if (!(other instanceof Trader)) {
-            return ClassCastException;
-        }
-        else if (this.compareTo(other) == 0) {
+        if (this.id.compareToIgnoreCase(other.getName()) == 0) {
             return true;
         }
         else {
