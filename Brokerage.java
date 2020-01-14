@@ -35,6 +35,7 @@ public class Brokerage implements Login {
     }
     Trader add = new Trader(this, name, password);
     loggedOnTraders.put(name, add);
+    add.receiveMessage("Welcome to SafeTrade!");
     add.openWindow();
     return 0;
   }
@@ -44,6 +45,7 @@ public class Brokerage implements Login {
   }
 
   public void getQuote (String symbol, Trader trader) {
+    System.out.println("oh we here here");
     trader.receiveMessage(stockEx.getQuote(symbol));
   }
 

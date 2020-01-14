@@ -38,10 +38,7 @@ public class Stock {
   }
 
   public String getQuote() {
-
-    print ("hello");
-    return "hello";
-    /*
+    
     double lowestSellPrice = 0;
     String lowestSellVolume = "";
     double highestBuyPrice = 0;
@@ -62,9 +59,8 @@ public class Stock {
     highestBuyPrice = buyOrders.peek().getPrice();
     highestBuyVol = "" + sellOrders.peek().getShares();
 
-    print (name+" ("+symbol+")\n"+"Price: "+price+" hi: "+hi+" lo: "+ lo+ " vol: " + volume + " Ask: " + lowestSellPrice + " size: " + lowestSellVolume + " Bid: " + highestBuyPrice + " size: " + highestBuyVol);
     return name+" ("+symbol+")\n"+"Price: "+price+" hi: "+hi+" lo: "+ lo+ " vol: " + volume + " Ask: " + lowestSellPrice + " size: " + lowestSellVolume + " Bid: " + highestBuyPrice + " size: " + highestBuyVol;
-  */
+  
   }
   
 
