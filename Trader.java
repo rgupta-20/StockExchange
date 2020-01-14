@@ -45,7 +45,7 @@ public class Trader implements Comparable<Trader> {
         }
     }
     public void openWindow() {
-        TraderWindow myWindow = new TraderWindow(this);
+        myWindow = new TraderWindow(this);
         System.out.println(myWindow==null);
         System.out.println("oh we here now bitch");
         for (Object m : messages) {
@@ -63,16 +63,8 @@ public class Trader implements Comparable<Trader> {
     public void receiveMessage(String msg) {
         messages.add(msg);
         System.out.println("we are here13456789");
-        openWindow();
-        if (myWindow == null) {
-            System.out.println("wtf");
-        }
         if (myWindow != null) {
-            System.out.println("we are here now");
-            for (Object item : messages) {
-                System.out.println("we are finally here");
-                myWindow.showMessage((String) msg);
-            }
+            myWindow.showMessage((String) messages.peek());
         }
     }
     public void getQuote(String symbol) {

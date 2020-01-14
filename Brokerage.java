@@ -45,7 +45,6 @@ public class Brokerage implements Login {
   }
 
   public void getQuote (String symbol, Trader trader) {
-    System.out.println("oh we here here");
     trader.receiveMessage(stockEx.getQuote(symbol));
   }
 

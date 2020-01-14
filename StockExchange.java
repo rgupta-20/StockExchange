@@ -20,7 +20,6 @@ public class StockExchange {
     }
 
     public String getQuote(String symbol) {
-        System.out.println("hello2");
         Stock ourStock = stockExchange.get(symbol);
         return ourStock.getQuote();
     }
