@@ -1,8 +1,8 @@
-/*
-
-author: ronit gupta
-trade order object that contains information about the order
-
+/**
+* Author: Ronit Gupta
+* Editor: Vincent Fan
+* Class Period: 5
+* Description: Trade order object that contains information about the order, including trader, stock symbol, number of shares, order classification, and price.
 */
 
 public class TradeOrder {
@@ -23,6 +23,9 @@ public class TradeOrder {
         this.price = price;
     }
 
+    /**
+     * Getter methods to return fields.
+     */
     public double getPrice() {
         return price;
     }
@@ -55,6 +58,9 @@ public class TradeOrder {
         return !isBuy();
     }
 
+    /**
+     * Edits field for number of shares.
+     */
     public void subtractShares(int shares) {
         numShares = numShares - shares;
     }

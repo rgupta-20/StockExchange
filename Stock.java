@@ -1,7 +1,9 @@
-//Author: Vincent Fan
-//Author: Ronit Gupta
-
-//Explanation
+/**
+* Author: Vincent Fan
+* Editor: Ronit Gupta
+* Class Period: 5
+* Description: Creates the Stock object and the ability to execute stock orders depending on whether it is market or limit order.
+*/
 
 import java.text.DecimalFormat;
 import java.util.PriorityQueue;
@@ -10,13 +12,9 @@ import java.lang.Math;
 public class Stock {
 
   public static java.text.DecimalFormat money;
-
   private String symbol, name; 
-
   private double lo, hi, last, price;
-
   private int volume;
-
   private PriorityQueue<TradeOrder> sellOrders;
   private PriorityQueue<TradeOrder> buyOrders;
 
@@ -32,41 +30,46 @@ public class Stock {
     this.sellOrders = new PriorityQueue<>(new PriceComparator(true));
     this.buyOrders = new PriorityQueue<>(new PriceComparator(false));
 
-    this.money = new DecimalFormat(" #,###.##");
+    this.money = new DecimalFormat("#,###.00");
   }
 
+  /**
+  * Returns a formatted description of the stock, including price and daily statistics.
+  */
   public String getQuote() {
     
-    double lowestSellPrice = 0;
+    String lowestSellPrice = "";
     String lowestSellVolume = "";
-    double highestBuyPrice = 0;
+    String highestBuyPrice = "";
     String highestBuyVol = "";
 
     if (sellOrders.isEmpty()) {
-      lowestSellPrice = this.price;
+      lowestSellPrice = "$" + money.format(this.price);
       lowestSellVolume = "none";
     }
 
     else {
-      lowestSellPrice = sellOrders.peek().getPrice();
+      lowestSellPrice = "$" + money.format(sellOrders.peek().getPrice());
       lowestSellVolume = "" + sellOrders.peek().getShares();
     }
 
     if (buyOrders.isEmpty()) {
-      highestBuyPrice = this.price;
+      highestBuyPrice = "$" + money.format(this.price);
       highestBuyVol = "none";
     }
 
     else {
-      highestBuyPrice = buyOrders.peek().getPrice();
+      highestBuyPrice = "$" + money.format(buyOrders.peek().getPrice());
       highestBuyVol = "" + buyOrders.peek().getShares();
     }
 
-    return name+" ("+symbol+")\n"+"Price: "+price+" hi: "+hi+" lo: "+ lo+ " vol: " + volume + " Ask: " + lowestSellPrice + " size: " + lowestSellVolume + " Bid: " + highestBuyPrice + " size: " + highestBuyVol;
+    return name+" ("+symbol+")\n"+"Price: $"+money.format(price)+" hi: "+hi+" lo: "+ lo+ " vol: " + volume + " Ask: " + lowestSellPrice + " size: " + lowestSellVolume + " Bid: " + highestBuyPrice + " size: " + highestBuyVol;
   
   }
   
-
+  /**
+  * Places an order given details of the order.
+  */
   public void placeOrder(TradeOrder order) {
 
     String buyOrSell = "";
@@ -88,7 +91,7 @@ public class Stock {
 
     else {
       money.format(order.getPrice());
-      marketOrPrice = "" + order.getPrice();
+      marketOrPrice = "$" + money.format(order.getPrice());
     }
 
     order.getTrader().receiveMessage("New order: " + buyOrSell + " " + symbol + " (" + name + ") \n" + order.getShares() + " shares at " + marketOrPrice);
@@ -97,6 +100,9 @@ public class Stock {
 
   }
 
+  /**
+  * Executes all pending orders possible depending on buyers and sellers.
+  */
   protected void executeOrders()
   {
     while(!buyOrders.isEmpty()&&!sellOrders.isEmpty())
@@ -108,24 +114,24 @@ public class Stock {
       {
         if(currentB.getShares()==currentS.getShares())
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentB.getShares()*last));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentB.getShares()*last));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of $"+money.format(currentB.getShares()*last));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of $"+money.format(currentB.getShares()*last));
           buyOrders.remove();
           sellOrders.remove();
           volume+=currentB.getShares();
         }
         else if(currentB.getShares()>currentS.getShares())
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentS.getShares()*last));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentS.getShares()*last));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of $"+money.format(currentS.getShares()*last));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of $"+money.format(currentS.getShares()*last));
           sellOrders.remove();
           buyOrders.peek().subtractShares(currentS.getShares());
           volume+=currentS.getShares();
         }
         else
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentB.getShares()*last));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of "+money.format(currentB.getShares()*last));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of $"+money.format(currentB.getShares()*last));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(last) + " for a total of $"+money.format(currentB.getShares()*last));
           buyOrders.remove();
           volume+=currentB.getShares();
           sellOrders.peek().subtractShares(currentB.getShares());
@@ -135,8 +141,8 @@ public class Stock {
       {
         if(currentB.getShares()==currentS.getShares())
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentB.getPrice()));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentB.getPrice()));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentB.getPrice()));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentB.getPrice()));
           buyOrders.remove();
           sellOrders.remove();
           volume+=currentB.getShares();
@@ -144,16 +150,16 @@ public class Stock {
         }
         else if(currentB.getShares()>currentS.getShares())
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of "+money.format(currentS.getShares()*currentB.getPrice()));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of "+money.format(currentS.getShares()*currentB.getPrice()));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of $"+money.format(currentS.getShares()*currentB.getPrice()));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of $"+money.format(currentS.getShares()*currentB.getPrice()));
           sellOrders.remove();
           volume+=currentS.getShares();
           buyOrders.peek().subtractShares(currentS.getShares());
         }
         else
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentB.getPrice()));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentB.getPrice()));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentB.getPrice()));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentB.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentB.getPrice()));
           buyOrders.remove();
           volume+=currentB.getShares();
           sellOrders.peek().subtractShares(currentB.getShares());
@@ -166,8 +172,8 @@ public class Stock {
       {
         if(currentB.getShares()==currentS.getShares())
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentS.getPrice()));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentS.getPrice()));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentS.getPrice()));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentS.getPrice()));
           buyOrders.remove();
           sellOrders.remove();
           volume+=currentB.getShares();
@@ -175,16 +181,16 @@ public class Stock {
         }
         else if(currentB.getShares()>currentS.getShares())
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentS.getShares()*currentS.getPrice()));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentS.getShares()*currentS.getPrice()));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentS.getShares()*currentS.getPrice()));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentS.getShares()*currentS.getPrice()));
           sellOrders.remove();
           volume+=currentS.getShares();
           buyOrders.peek().subtractShares(currentS.getShares());
         }
         else
         {
-          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentS.getPrice()));
-          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentS.getPrice()));
+          currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentS.getPrice()));
+          currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentS.getPrice()));
           buyOrders.remove();
           volume+=currentB.getShares();
           sellOrders.peek().subtractShares(currentB.getShares());
@@ -200,8 +206,8 @@ public class Stock {
         {
           if(currentB.getShares()==currentS.getShares())
           {
-            currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentS.getPrice()));
-            currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentS.getPrice()));
+            currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentS.getPrice()));
+            currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentS.getPrice()));
             buyOrders.remove();
             sellOrders.remove();
             volume+=currentB.getShares();
@@ -209,16 +215,16 @@ public class Stock {
           }
           else if(currentB.getShares()>currentS.getShares())
           {
-            currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentS.getShares()*currentS.getPrice()));
-            currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentS.getShares()*currentS.getPrice()));
+            currentB.getTrader().receiveMessage("Success! You bought "+currentS.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentS.getShares()*currentS.getPrice()));
+            currentS.getTrader().receiveMessage("Success! You sold "+currentS.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentS.getShares()*currentS.getPrice()));
             sellOrders.remove();
             volume+=currentS.getShares();
             buyOrders.peek().subtractShares(currentS.getShares());
           }
           else
           {
-            currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentS.getPrice()));
-            currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of "+money.format(currentB.getShares()*currentS.getPrice()));
+            currentB.getTrader().receiveMessage("Success! You bought "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentS.getPrice()));
+            currentS.getTrader().receiveMessage("Success! You sold "+currentB.getShares()+ " "+symbol +" at " + money.format(currentS.getPrice()) + " for a total of $"+money.format(currentB.getShares()*currentS.getPrice()));
             buyOrders.remove();
             volume+=currentB.getShares();
             sellOrders.peek().subtractShares(currentB.getShares());
