@@ -27,8 +27,13 @@ public class StockExchange {
      * Returns the stock price of a specified stock.
      */
     public String getQuote(String symbol) {
-        Stock ourStock = stockExchange.get(symbol);
-        return ourStock.getQuote();
+        if (stockExchange.keySet().contains(symbol)) {
+            Stock ourStock = stockExchange.get(symbol);
+            return ourStock.getQuote();
+        }
+        else {
+            return "This stock does not exist";
+        }
     }
 
     /**
