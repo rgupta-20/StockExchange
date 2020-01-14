@@ -1,7 +1,9 @@
 /**
- * Author: Harry Shin
- * Trader Class
- */
+* Author: Harry Shin
+* Editors: Ronit Gupta and Vincent Fan
+* Class Period: 5
+* Description: Compares TradeOrder objects depending on their price.
+*/
 import java.lang.Math;
 import java.util.*;
 
@@ -13,6 +15,10 @@ class PriceComparator implements Comparator<TradeOrder> {
     public PriceComparator(boolean asc) {
         ascending = asc;
     }
+
+    /**
+    * Compares two TradeOrder objects depending on the price of the order.
+    */
     public int compare(TradeOrder order1, TradeOrder order2) {
         if (!(order1.isLimit()) && !(order2.isLimit())) {
             return 0;
