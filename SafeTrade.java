@@ -1,5 +1,4 @@
  import javax.swing.JFrame;
-
 /**
  * The main class for the <i>SafeTrade</i> application.
  */
